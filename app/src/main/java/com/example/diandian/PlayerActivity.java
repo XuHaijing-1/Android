@@ -29,6 +29,7 @@ public class PlayerActivity extends AppCompatActivity {
         //init();
         Serializable s=getIntent().getSerializableExtra("channel");
         Log.d("Diandian","取得当前频道对象是："+s);
+        Log.d("Diandian","取得当前频道对象是："+s);
         if (s!=null&&s instanceof Channel){
             currentChannel=(Channel) s;
         }
