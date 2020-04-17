@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.ChannelRowHolder> {
 
-    private ChannelLab lab=new ChannelLab();
+    private ChannelLab lab=ChannelLab.getInstance();
     private ChannelClickListener listener;
 
     public ChannelRvAdapter(ChannelClickListener listener){

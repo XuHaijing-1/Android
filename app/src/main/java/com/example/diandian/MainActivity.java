@@ -1,15 +1,31 @@
 package com.example.diandian;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView channelRv;
-    private ChannelLab lab=new ChannelLab();
+    private ChannelRvAdapter rvAdapter;
+    private ChannelLab lab=ChannelLab.getInstance();
+    //线程通讯第1步，在主线程创建HandLer
+    private Handler handler=new Handler(){
+        //按快捷键ctrl o
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (msg.what==1){
+                rvAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.channelRv=findViewById(R.id.channel_rv);
         //lambda简化
-        ChannelRvAdapter rvAdapter=new ChannelRvAdapter(p -> {
+        //适用handler，把适配器改为实例变量
+        rvAdapter =new ChannelRvAdapter(p -> {
             //跳转到新界面，使用意图Intent
             Intent intent =new Intent(MainActivity.this,PlayerActivity.class);
             //TODO 传递用户选中的频道到下一个界面
@@ -30,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
         this.channelRv.setAdapter(rvAdapter);
         this.channelRv.setLayoutManager(new LinearLayoutManager(this));
+
+        Retrofit a=RetrofitClient.getInstance();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        //把主线程的handler传递给子线程适用
+        lab.getData(handler);
     }
 
 }

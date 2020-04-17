@@ -1,5 +1,8 @@
 package com.example.diandian;
 
+
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,15 +12,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.moshi.MoshiConverterFactory;
 
+/**
+ * 频道数据源
+ * 使用了单例模式保证此类仅有一个对象
+ */
 public class ChannelLab {
+    //单例第1步
+    private static ChannelLab INSTANCE=null;
+
     private  List<Channel>data;
 
-    public ChannelLab(){
-        //TODO 把下面的代码换成从网络获取数据
-        test();
-        getData();
+    //单例第2步
+    private ChannelLab(){
+        //把下面的代码换成从网络获取数据
+        data = new ArrayList<>();
+//        test();
+//        getData();
+    }
+
+    //单例第3步
+    public static ChannelLab getInstance(){
+        if (INSTANCE==null){
+            INSTANCE=new ChannelLab();
+        }
+        return INSTANCE;
     }
     /**
      * 生成测试数据
@@ -146,20 +165,26 @@ public class ChannelLab {
 
     /**
      * 访问网络数据得到真实数据,代替以前的test（）方法
+     * @param handler
      */
-    private void getData(){
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://47.115.94.109:8005")
-                .addConverterFactory(MoshiConverterFactory.create())
-                .build();
+    void getData(Handler handler){
+        //调用单例
+        Retrofit retrofit=RetrofitClient.getInstance();
+
         ChannelApi api = retrofit.create(ChannelApi.class);
         Call<List<Channel>> call=api.getAllChannels();
+        //enqueue会自己生成子线程，去执行后溪代码
         call.enqueue(new Callback<List<Channel>>() {
             @Override
             public void onResponse(Call<List<Channel>> call, Response<List<Channel>> response) {
                 if (null != response && null != response.body()) {
                     Log.d("Diandian", "从阿里云得到数据是：");
                     Log.d("Diandian", response.body().toString());
+                    data=response.body();
+                    //发出通知
+                    Message msg=new Message();
+                    msg.what=1; //自己规定1代表从阿里云获取数据完毕
+                    handler.sendMessage(msg);
                 } else {
                     Log.w("Diandian", "responew没有数据!");
                 }
@@ -173,3 +198,5 @@ public class ChannelLab {
 
     }
 }
+
+

@@ -7,7 +7,6 @@ public class Channel implements Serializable {
     private String title;
     private String quality;
     private String url;
-    private String comments;
 
     @Override
     public String toString() {
@@ -16,17 +15,8 @@ public class Channel implements Serializable {
                 ", title='" + title + '\'' +
                 ", quality='" + quality + '\'' +
                 ", url='" + url + '\'' +
-                ", comments='" + comments + '\'' +
                 ", cover=" + cover +
                 '}';
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
     }
 
     private int cover;
