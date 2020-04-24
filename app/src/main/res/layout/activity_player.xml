@@ -6,37 +6,453 @@
     android:layout_height="match_parent"
     tools:context=".PlayerActivity">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/tv_player"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tv_players"
         android:layout_width="0dp"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="CCTV-1 综合频道"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_player" />
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="CCTV-1 综合频道"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_player" />
+        <TextView
+            android:id="@+id/tv_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="4k 超高清"
+            android:textColor="#C1CCC2"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_quality0"
+            app:layout_constraintTop_toTopOf="@+id/tv_quality0" />
 
-    <TextView
-        android:id="@+id/tv_quality"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="4k 超高清"
-        android:textColor="#03F817"
-        android:textSize="24sp"
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/tv_player"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shutter_background_color="#090000">
+
+        </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+
+        <TextView
+            android:id="@+id/thumbup_count0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="9999+"
+            android:textColor="#B8ACAC"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbups0"
+            app:layout_constraintEnd_toStartOf="@+id/thumbups0"
+            app:layout_constraintTop_toTopOf="@+id/thumbups0" />
+
+        <ImageView
+            android:id="@+id/thumbups0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_favorite_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_quality0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tv_quality0"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hot_comment"
+        android:layout_width="0dp"
+        android:layout_height="360dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_players">
+
+        <TextView
+            android:id="@+id/hot_comment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/hot_comment_title"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/c1"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hot_comment_title">
+
+            <ImageView
+                android:id="@+id/user1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/b1" />
+
+            <TextView
+                android:id="@+id/username1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:text="憨态可拘"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/user1"
+                app:layout_constraintTop_toTopOf="@+id/user1" />
+
+            <TextView
+                android:id="@+id/date1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="2020-04-24"
+                android:textColor="#BCA8A8"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/username1"
+                app:layout_constraintTop_toBottomOf="@+id/username1" />
+
+            <TextView
+                android:id="@+id/conten1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="6"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/date1"
+                app:layout_constraintTop_toBottomOf="@+id/date1" />
+
+            <TextView
+                android:id="@+id/thumbup_count1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="9"
+                android:textColor="#AA9797"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/thumbups1"
+                app:layout_constraintEnd_toStartOf="@+id/thumbups1"
+                app:layout_constraintTop_toTopOf="@+id/thumbups1" />
+
+            <ImageButton
+                android:id="@+id/thumbups1"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/c2"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/c1">
+
+            <ImageView
+                android:id="@+id/user2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/b2" />
+
+            <TextView
+                android:id="@+id/username2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:text="顾_旻思义"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/user2"
+                app:layout_constraintTop_toTopOf="@+id/user2" />
+
+            <TextView
+                android:id="@+id/date2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="2020-04-23"
+                android:textColor="#B1A3A3"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/username2"
+                app:layout_constraintTop_toBottomOf="@+id/username2" />
+
+            <TextView
+                android:id="@+id/conten2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="66"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/date2"
+                app:layout_constraintTop_toBottomOf="@+id/date2" />
+
+            <TextView
+                android:id="@+id/thumbup_count2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="99"
+                android:textColor="#B6A5A5"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/thumbups2"
+                app:layout_constraintEnd_toStartOf="@+id/thumbups2"
+                app:layout_constraintTop_toTopOf="@+id/thumbups2" />
+
+            <ImageButton
+                android:id="@+id/thumbups2"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/c3"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/c2">
+
+            <ImageView
+                android:id="@+id/user3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
+            <TextView
+                android:id="@+id/username3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:text="心甜意洽"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/user3"
+                app:layout_constraintTop_toTopOf="@+id/user3" />
+
+            <TextView
+                android:id="@+id/date3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="2020-04-22"
+                android:textColor="#C5B2B2"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/username3"
+                app:layout_constraintTop_toBottomOf="@+id/username3" />
+
+            <TextView
+                android:id="@+id/conten3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="666"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/date3"
+                app:layout_constraintTop_toBottomOf="@+id/date3" />
+
+            <TextView
+                android:id="@+id/thumbup_count3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="999"
+                android:textColor="#AC9999"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/thumbups3"
+                app:layout_constraintEnd_toStartOf="@+id/thumbups3"
+                app:layout_constraintTop_toTopOf="@+id/thumbups3" />
+
+            <ImageButton
+                android:id="@+id/thumbups3"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/c4"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/c3">
+
+            <ImageView
+                android:id="@+id/user4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
+            <TextView
+                android:id="@+id/username4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:text="靖谮庸回"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/user4"
+                app:layout_constraintTop_toTopOf="@+id/user4" />
+
+            <TextView
+                android:id="@+id/date4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="2020-04-23"
+                android:textColor="#B3A6A6"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/username4"
+                app:layout_constraintTop_toBottomOf="@+id/username4" />
+
+            <TextView
+                android:id="@+id/conten4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="6666"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/date4"
+                app:layout_constraintTop_toBottomOf="@+id/date4" />
+
+            <TextView
+                android:id="@+id/thumbup_count4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="9999"
+                android:textColor="#AFA1A1"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/thumbups4"
+                app:layout_constraintEnd_toStartOf="@+id/thumbups4"
+                app:layout_constraintTop_toTopOf="@+id/thumbups4" />
+
+            <ImageButton
+                android:id="@+id/thumbups4"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/view_all_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/view_all_comments"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/c4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/c_add"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/user_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/send"
+            app:layout_constraintStart_toEndOf="@+id/user_add" />
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_send_black_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

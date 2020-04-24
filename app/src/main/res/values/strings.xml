@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Diandian</string>
+    <string name="app_name">薇薇电视直播</string>
+    <string name="hot_comment_title">热门评论</string>
+    <string name="view_all_comments">查看全部评论</string>
+    <string name="tv_quality0">清晰度</string>
 </resources>
