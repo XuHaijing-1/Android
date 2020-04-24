@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         this.channelRv=findViewById(R.id.channel_rv);
         //lambda简化
         //适用handler，把适配器改为实例变量
-        rvAdapter =new ChannelRvAdapter(p -> {
+        rvAdapter =new ChannelRvAdapter(MainActivity.this, p -> {
             //跳转到新界面，使用意图Intent
             Intent intent =new Intent(MainActivity.this,PlayerActivity.class);
             //TODO 传递用户选中的频道到下一个界面

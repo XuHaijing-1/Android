@@ -12,6 +12,7 @@ public class RetrofitClient {
         if (INSTANCE==null){
             INSTANCE=new Retrofit.Builder()
                     .baseUrl("http://47.115.94.109:8005")
+//                    .baseUrl("http://47.115.34.11:8080")
                     .addConverterFactory(MoshiConverterFactory.create())
                     .build();
         }

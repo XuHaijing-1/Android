@@ -1,5 +1,6 @@
 package com.example.diandian;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,12 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.ChannelRowHolder> {
 
     private ChannelLab lab=ChannelLab.getInstance();
     private ChannelClickListener listener;
+    private Context context;
 
-    public ChannelRvAdapter(ChannelClickListener listener){
+    public ChannelRvAdapter(Context context, ChannelClickListener listener){
+        this.context=context;
         this.listener=listener;
     }
     /**
@@ -85,11 +90,15 @@ public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.Chan
         public void bind(Channel c){
             this.title.setText(c.getTitle());
             this.quality.setText(c.getQuality());
-            this.cover.setImageResource(c.getCover());
+            //从网络获取图片
+            //this.cover.setImageResource(c.getCover());
+            Log.d("Diandian","频道"+c.getTitle()+"准备从网络加载图片"+c.getCover());
+            Glide.with(context)
+                    .load(c.getCover())
+                    .into(this.cover);
         }
     }
 
 //    public interface ChannelClickListener{
 //        public void onChannelClick();
-//    }
 }

@@ -7,6 +7,7 @@ public class Channel implements Serializable {
     private String title;
     private String quality;
     private String url;
+    private String cover;
 
     @Override
     public String toString() {
@@ -18,8 +19,6 @@ public class Channel implements Serializable {
                 ", cover=" + cover +
                 '}';
     }
-
-    private int cover;
 
     public String getId() {
         return id;
@@ -53,11 +52,11 @@ public class Channel implements Serializable {
         this.quality = quality;
     }
 
-    public int getCover() {
+    public String getCover() {
         return cover;
     }
 
-    public void setCover(int cover) {
+    public void setCover(String cover) {
         this.cover = cover;
     }
 }
