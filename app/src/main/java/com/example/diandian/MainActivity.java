@@ -1,6 +1,7 @@
 package com.example.diandian;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.TextView;
 
 import retrofit2.Retrofit;
 
@@ -49,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
         this.channelRv.setLayoutManager(new LinearLayoutManager(this));
 
         Retrofit a=RetrofitClient.getInstance();
+        // 标题栏居中显示
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            actionBar.setCustomView(R.layout.title_name);
+            TextView textView = (TextView) actionBar.getCustomView().findViewById(R.id.display_title);
+            textView.setText("微视频");
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowCustomEnabled(true);
+
+        }
     }
 
     @Override
@@ -57,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         //把主线程的handler传递给子线程适用
         lab.getData(handler);
     }
+
 
 }
 
