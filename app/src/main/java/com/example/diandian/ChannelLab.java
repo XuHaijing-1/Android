@@ -71,7 +71,7 @@ public class ChannelLab {
      * 访问网络数据得到真实数据,代替以前的test（）方法
      * @param handler
      */
-    void getData(Handler handler){
+    public void getData(Handler handler){
         //调用单例
         Retrofit retrofit=RetrofitClient.getInstance();
 
@@ -101,6 +101,38 @@ public class ChannelLab {
         });
 
     }
+
+    public List<Comment> getHotComments(String channelId, Handler handler){
+        List<Comment>result=null;
+        //调用单例
+        Retrofit retrofit=RetrofitClient.getInstance();
+        ChannelApi api = retrofit.create(ChannelApi.class);
+        Call<List<Comment>> call = api.getHotComments(channelId);
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                if (null != response && null != response.body()) {
+                    Log.d("Diandian", "从阿里云得到评论数据是：");
+                    Log.d("Diandian", response.body().toString());
+                    List<Comment> comments=response.body();
+                    //发出通知
+                    Message msg=new Message();
+                    msg.what=2; //自己规定1代表从阿里云获取数据完毕
+                    msg.obj=comments;
+                    handler.sendMessage(msg);
+                } else {
+                    Log.w("Diandian", "responew没有评论数据!");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+                Log.e("Diandian","访问网络失败",t);
+            }
+        });
+
+        return result;
+    }
+
 }
 
 

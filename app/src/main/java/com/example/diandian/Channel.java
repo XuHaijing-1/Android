@@ -7,6 +7,7 @@ public class Channel implements Serializable {
     private String title;
     private String quality;
     private String url;
+    private int like;
     private String cover;
 
     @Override
@@ -16,8 +17,17 @@ public class Channel implements Serializable {
                 ", title='" + title + '\'' +
                 ", quality='" + quality + '\'' +
                 ", url='" + url + '\'' +
-                ", cover=" + cover +
+                ", like=" + like +
+                ", cover='" + cover + '\'' +
                 '}';
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
     }
 
     public String getId() {

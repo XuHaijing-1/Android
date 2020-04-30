@@ -1,5 +1,6 @@
 package com.example.diandian;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
@@ -7,6 +8,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,6 +25,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PlayerActivity extends AppCompatActivity {
 
@@ -29,7 +33,32 @@ public class PlayerActivity extends AppCompatActivity {
     private SimpleExoPlayer player;
     private PlayerView playerView;
     private Channel currentChannel;
-    private TextView tvName,tvQuality;
+    private TextView tvName,tvQuality,tvLike;
+    private ChannelLab lab=ChannelLab.getInstance();
+
+    //TODO 完成接收数据后
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (msg.what==2){
+                if (msg.obj !=null){
+                    List <Comment> hotComments =(List<Comment>)msg.obj;
+                    //更新界面
+                    if (hotComments.size()>0){
+                        Comment c1=hotComments.get(0);
+                        TextView username1 =findViewById(R.id.username1);
+                        username1.setText(c1.getAuthor());
+                        TextView content1 =findViewById(R.id.conten1);
+                        content1.setText(c1.getContent());
+                        TextView star1 =findViewById(R.id.thumbup_count1);
+                        star1.setText(c1.getStar()+"");
+                    }
+                }
+            }
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +78,8 @@ public class PlayerActivity extends AppCompatActivity {
         tvQuality=findViewById(R.id.tv_quality);
         tvName.setText(currentChannel.getTitle());
         tvQuality.setText(currentChannel.getQuality());
+        tvLike=findViewById(R.id.tv_like);
+        tvLike.setText(currentChannel.getLike()+"");
     }
 
     //快捷键ctrl O
@@ -82,6 +113,10 @@ public class PlayerActivity extends AppCompatActivity {
                 playerView.onResume();
             }
         }
+
+        //获取最新热门评论
+        lab.getHotComments(currentChannel.getId(),handler);
+
     }
     /**
      * 自定义方法，初始化播放器

@@ -49,7 +49,7 @@
         </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
         <TextView
-            android:id="@+id/thumbup_count0"
+            android:id="@+id/tv_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -118,7 +118,7 @@
                 android:layout_marginTop="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/b1" />
+                app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
             <TextView
                 android:id="@+id/username1"
@@ -147,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="6"
+                android:text="这个电视台感觉有点卡"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/date1"
                 app:layout_constraintTop_toBottomOf="@+id/date1" />
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="9"
+                android:text="99w"
                 android:textColor="#AA9797"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/thumbups1"
@@ -194,7 +194,7 @@
                 android:layout_marginTop="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/b2" />
+                app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
             <TextView
                 android:id="@+id/username2"
@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
-                android:text="顾_旻思义"
+                android:text="顾旻思义"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/user2"
                 app:layout_constraintTop_toTopOf="@+id/user2" />
@@ -223,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="66"
+                android:text="确实太卡，我开始还以为我的网络问题"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/date2"
                 app:layout_constraintTop_toBottomOf="@+id/date2" />
@@ -233,7 +233,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="99"
+                android:text="9w"
                 android:textColor="#B6A5A5"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/thumbups2"
@@ -299,7 +299,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="666"
+                android:text="卡啊，大哥"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/date3"
                 app:layout_constraintTop_toBottomOf="@+id/date3" />
@@ -309,7 +309,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="999"
+                android:text="6w"
                 android:textColor="#AC9999"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/thumbups3"
@@ -375,7 +375,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="6666"
+                android:text="画质还行，就是卡，网络没有优化吧"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/date4"
                 app:layout_constraintTop_toBottomOf="@+id/date4" />
@@ -385,7 +385,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="9999"
+                android:text="1w"
                 android:textColor="#AFA1A1"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/thumbups4"
@@ -427,8 +427,8 @@
 
         <ImageView
             android:id="@+id/user_add"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -448,7 +448,7 @@
         <ImageButton
             android:id="@+id/send"
             android:layout_width="40dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"

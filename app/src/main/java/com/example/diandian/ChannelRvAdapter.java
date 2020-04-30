@@ -70,12 +70,14 @@ public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.Chan
         private TextView title; //频道标题 实例对象
         private TextView quality;//清晰度
         private ImageView cover;
+        private TextView like;//关注度
 
         public ChannelRowHolder(@NonNull View row) {
             super(row);
             this.title=row.findViewById(R.id.channel_title);
             this.quality=row.findViewById(R.id.channel_quality);
             this.cover=row.findViewById(R.id.channel_cover);
+            this.like=row.findViewById(R.id.thumbup_count);
             row.setOnClickListener((v)->{
                 int position= getLayoutPosition();
                 Log.d("DianDian", position+"行被点击啦！");
@@ -90,6 +92,7 @@ public class ChannelRvAdapter extends RecyclerView.Adapter<ChannelRvAdapter.Chan
         public void bind(Channel c){
             this.title.setText(c.getTitle());
             this.quality.setText(c.getQuality());
+            this.like.setText(c.getLike()+"");
             //从网络获取图片
             //this.cover.setImageResource(c.getCover());
             Log.d("Diandian","频道"+c.getTitle()+"准备从网络加载图片"+c.getCover());
