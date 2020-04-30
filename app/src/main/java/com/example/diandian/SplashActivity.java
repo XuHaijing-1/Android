@@ -11,6 +11,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import java.io.File;
+
+
 public class SplashActivity extends AppCompatActivity {
 
     private ImageView img;
@@ -51,5 +54,8 @@ public class SplashActivity extends AppCompatActivity {
                     R.anim.alpha_animation);
             img.startAnimation(alpha);
         });
+
     }
 }
+
+
