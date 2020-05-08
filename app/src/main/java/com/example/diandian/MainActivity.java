@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         //按快捷键ctrl o
         @Override
         public void handleMessage(@NonNull Message msg) {
-            if (msg.what==1){
+            if (msg.what==ChannelLab.MSG_CHANNELS){
                 rvAdapter.notifyDataSetChanged();
             }
         }
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 this.finish(); // 返回按钮
                 return true;
         }
-        Log.d("diandian",item+"返回键被点击啦！");
         return super.onOptionsItemSelected(item);
     }
 

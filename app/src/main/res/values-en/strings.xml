@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Wei TV</string>
+	<string name="hot_comment_title">Top Comments</string>
+	<string name="view_all_comments">View all comments</string>
+	<string name="tv_quality0">Clarity</string>
+	<string name="hysy">Welcome to the micro-video</string>
+	<string name="login_or">Third-party platform Login</string>
+	<string name="login_username">username</string>
+	<string name="login_password">password</string>
+	<string name="login_login">log in</string>
+	<string name="login_register">Sign up now</string>
+	<string name="login_find_password">Forgot your password</string>
+	<string name="login_experience">Try it now</string>
+</resources>

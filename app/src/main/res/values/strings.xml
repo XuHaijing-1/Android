@@ -4,4 +4,11 @@
     <string name="view_all_comments">查看全部评论</string>
     <string name="tv_quality0">清晰度</string>
     <string name="hysy">欢迎使用微视频</string>
+    <string name="login_or">第三方平台登录</string>
+    <string name="login_username">用户名</string>
+    <string name="login_password">密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">立即注册</string>
+    <string name="login_find_password">找回密码</string>
+    <string name="login_experience">立即体验</string>
 </resources>

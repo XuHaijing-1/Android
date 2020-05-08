@@ -23,11 +23,13 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//因为不是所有的系统都可以设置颜色的，在4.4以下就不可以。。有的说4.1，所以在设置的时候要检查一下系统版本是否是4.1以上
             Window window = getWindow();
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//透明状态栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明标题栏
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.colorTop));//通知栏所需颜色
+//            window.setStatusBarColor(getResources().getColor(R.color.colorTop));//通知栏所需颜色
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
         }
         getSupportActionBar().hide();//隐藏标题栏
         setContentView(R.layout.activity_splash);
@@ -36,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try{
                     sleep(2000);//使程序休眠五秒
-                    Intent it=new Intent(getApplicationContext(),MainActivity.class);//启动MainActivity
+                    Intent it=new Intent(getApplicationContext(),LoginActivity.class);//启动LonginActivity
                     startActivity(it);
                     finish();//关闭当前活动
                 }catch (Exception e){

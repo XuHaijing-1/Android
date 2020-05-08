@@ -23,6 +23,12 @@ public class ChannelLab {
 
     private  List<Channel>data;
 
+    private final static String TAG="Diandian";
+    public final static int MSG_CHANNELS=1;
+    public final static int MSG_HOT_COMMENTS=2;
+    public final static int MSG_ADD_COMMENT=3;
+    public final static int MSG_FAILURE=4;
+
     //单例第2步
     private ChannelLab(){
         //把下面的代码换成从网络获取数据
@@ -82,20 +88,20 @@ public class ChannelLab {
             @Override
             public void onResponse(Call<List<Channel>> call, Response<List<Channel>> response) {
                 if (null != response && null != response.body()) {
-                    Log.d("Diandian", "从阿里云得到数据是：");
-                    Log.d("Diandian", response.body().toString());
+                    Log.d(TAG, "从阿里云得到数据是：");
+                    Log.d(TAG, response.body().toString());
                     data=response.body();
                     //发出通知
                     Message msg=new Message();
-                    msg.what=1; //自己规定1代表从阿里云获取数据完毕
+                    msg.what=MSG_CHANNELS;
                     handler.sendMessage(msg);
                 } else {
-                    Log.w("Diandian", "responew没有数据!");
+                    Log.w(TAG, "responew没有数据!");
                 }
             }
             @Override
             public void onFailure(Call<List<Channel>> call, Throwable t) {
-                    Log.e("Diandian","访问网络失败",t);
+                    Log.e(TAG,"访问网络失败",t);
 
             }
         });
@@ -112,25 +118,55 @@ public class ChannelLab {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 if (null != response && null != response.body()) {
-                    Log.d("Diandian", "从阿里云得到评论数据是：");
-                    Log.d("Diandian", response.body().toString());
+                    Log.d(TAG, "从阿里云得到评论数据是：");
+                    Log.d(TAG, response.body().toString());
                     List<Comment> comments=response.body();
                     //发出通知
                     Message msg=new Message();
-                    msg.what=2; //自己规定1代表从阿里云获取数据完毕
+                    msg.what=MSG_HOT_COMMENTS; //自己规定1代表从阿里云获取数据完毕
                     msg.obj=comments;
                     handler.sendMessage(msg);
                 } else {
-                    Log.w("Diandian", "responew没有评论数据!");
+                    Log.w(TAG, "responew没有评论数据!");
                 }
             }
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
-                Log.e("Diandian","访问网络失败",t);
+                Log.e(TAG,"访问网络失败",t);
             }
         });
 
         return result;
+    }
+
+    /**
+     * 添加新评论
+     * @param channelId 频道编号
+     * @param comment 评论对象
+     * @param handler 主线程需要提供一个通讯录hansler
+     */
+    public void addComment(String channelId,Comment comment,Handler handler){
+        Retrofit retrofit =RetrofitClient.getInstance();
+        ChannelApi api=retrofit.create(ChannelApi.class);
+        Call<Channel> call=api.addComment(channelId,comment);
+        call.enqueue(new Callback<Channel>() {
+            @Override
+            public void onResponse(Call<Channel> call, Response<Channel> response) {
+                Log.d(TAG,"新增评论后服务器返回数据：");
+                Log.d(TAG,response.body().toString());
+                Message msg=new Message();
+                msg.what=MSG_ADD_COMMENT;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<Channel> call, Throwable t) {
+                Log.e(TAG,"访问网络失败！",t);
+                Message msg=new Message();
+                msg.what=MSG_FAILURE;
+                handler.sendMessage(msg);
+            }
+        });
     }
 
 }
