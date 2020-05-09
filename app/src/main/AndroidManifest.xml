@@ -3,9 +3,7 @@
     package="com.example.diandian"
     android:versionCode="1"
     android:versionName="3.0">
-
-<!--    <uses-sdk android:minSdkVersion="4" />-->
-
+    <!-- <uses-sdk android:minSdkVersion="4" /> -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -18,9 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity" android:theme="@style/AppTheme.NoBar">
-
-        </activity>
+        <activity android:name=".RegisterActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoBar"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayerActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

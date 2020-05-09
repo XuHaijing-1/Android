@@ -11,4 +11,7 @@
     <string name="login_register">立即注册</string>
     <string name="login_find_password">找回密码</string>
     <string name="login_experience">立即体验</string>
+    <string name="register_confirmpassword">确认密码</string>
+    <string name="register_phone">手机号</string>
+    <string name="register_birthday">生日</string>
 </resources>

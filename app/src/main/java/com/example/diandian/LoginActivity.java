@@ -14,8 +14,9 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
+    private Button registerButton;
     private Button loginButton;
-    private Button experienceButton;
+//    private Button experienceButton;
     private UserLab lab =UserLab.getInstance();
     private Handler handler=new Handler(){
         @Override
@@ -56,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton=findViewById(R.id.login_button);
         loginButton.setOnClickListener(v->{
-            TextInputLayout username=findViewById(R.id.login_username);
+            TextInputLayout username=findViewById(R.id.register_username);
             TextInputLayout password=findViewById(R.id.login_password);
             String u=username.getEditText().getText().toString();
             String p=password.getEditText().getText().toString();
@@ -64,9 +65,21 @@ public class LoginActivity extends AppCompatActivity {
             lab.login(u,p,handler);
         });
 
-        experienceButton=findViewById(R.id.experience_button);
-        experienceButton.setOnClickListener(v->{
-            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+        /**
+         * 点击立即体验
+         */
+//        experienceButton=findViewById(R.id.experience_button);
+//        experienceButton.setOnClickListener(v->{
+//            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+//            startActivity(intent);
+//        });
+
+        /**
+         * 点击立即注册
+         */
+        registerButton=findViewById(R.id.register_button);
+        registerButton.setOnClickListener(v->{
+            Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
             startActivity(intent);
         });
     }
