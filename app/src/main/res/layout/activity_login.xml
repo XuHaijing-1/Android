@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/qdtb" />
+        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_username"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_username"
-        app:startIconDrawable="@drawable/ic_security_black_24dp">
+        app:startIconDrawable="@drawable/ic_no_encryption_black_24dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -108,14 +108,14 @@
         app:layout_constraintBottom_toBottomOf="@+id/register_button"
         app:layout_constraintEnd_toEndOf="@+id/login_button" />
 
-<!--    <Button-->
-<!--        android:id="@+id/experience_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/login_experience"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/register_button"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/find_password_button"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/register_button" />-->
+    <Button
+        android:id="@+id/experience_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_experience"
+        app:layout_constraintBottom_toBottomOf="@+id/register_button"
+        app:layout_constraintEnd_toStartOf="@+id/find_password_button"
+        app:layout_constraintStart_toEndOf="@+id/register_button" />
 
     <TextView
         android:id="@+id/or"

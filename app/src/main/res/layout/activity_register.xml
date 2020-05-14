@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="性别："
+            android:text="@string/register_sex"
             android:textSize="16sp" />
 
         <RadioGroup
@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="男"
+                android:text="@string/register_male"
                 android:textSize="16sp" />
 
             <RadioButton
@@ -171,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="女"
+                android:text="@string/register_femle"
                 android:textSize="16sp" />
 
             <RadioButton
@@ -179,7 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="保密"
+                android:text="@string/register_keep"
                 android:textSize="16sp" />
         </RadioGroup>
     </TableRow>

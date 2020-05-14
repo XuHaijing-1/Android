@@ -15,6 +15,9 @@ public class UserLab {
     public final static int USER_LOGIN_SUCCESS=1;
     public final static int USER_LOGIN_PASSWORD_ERROR=-1;
     public final static int USER_LOGIN_NET_ERROR=-2;
+    public final static int USER_REGISTER_SUCCESS=1;
+    public final static int USER_REGISTER_ERROR=-1;
+    public final static int USER_REGISTER_NET_ERROR=-2;
     private final static String TAG="Diandian";
     public static UserLab getInstance(){
         if (null==INSTANCE){
@@ -56,4 +59,38 @@ public class UserLab {
             }
         });
     }
+
+//    public void register(String username, String password,String confirmpassword,String phone,String birthbay, Handler handler){
+//        Retrofit retrofit=RetrofitClient.getInstance();
+//        UserApi api=retrofit.create(UserApi.class);
+//        Call<com.example.diandian.Response> call=api.register(data);
+//        call.enqueue(new Callback<com.example.diandian.Response>() {
+//            @Override
+//            public void onResponse(Call<com.example.diandian.Response> call, Response<com.example.diandian.Response> response) {
+//                Log.d(TAG,"注册成功返回数据");
+//                boolean registerSuccess=false;
+//                if (response.body().getStatus()== com.example.diandian.Response.STATUS_OK){
+//                    //登录成功
+//                    registerSuccess=true;
+//                }
+//                if (registerSuccess){
+//                    Message msg=new Message();
+//                    msg.what=USER_REGISTER_SUCCESS;
+//                    handler.sendMessage(msg);
+//                }else {
+//                    Message msg=new Message();
+//                    msg.what=USER_REGISTER_ERROR;
+//                    handler.sendMessage(msg);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<com.example.diandian.Response> call, Throwable t) {
+//                Log.e(TAG,"注册失败！");
+//                Message msg=new Message();
+//                msg.what=USER_REGISTER_NET_ERROR;
+//                handler.sendMessage(msg);
+//            }
+//        });
+//    }
 }

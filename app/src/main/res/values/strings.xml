@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">薇电视</string>
+    <string name="app_register">注册</string>
     <string name="hot_comment_title">热门评论</string>
     <string name="view_all_comments">查看全部评论</string>
     <string name="tv_quality0">清晰度</string>
@@ -10,8 +11,12 @@
     <string name="login_login">登录</string>
     <string name="login_register">立即注册</string>
     <string name="login_find_password">找回密码</string>
-    <string name="login_experience">立即体验</string>
+    <string name="login_experience">体验5分钟</string>
     <string name="register_confirmpassword">确认密码</string>
     <string name="register_phone">手机号</string>
     <string name="register_birthday">生日</string>
+    <string name="register_sex">性别：</string>
+    <string name="register_male">男</string>
+    <string name="register_femle">女</string>
+    <string name="register_keep">保密</string>
 </resources>

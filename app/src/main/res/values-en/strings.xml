@@ -11,8 +11,9 @@
 	<string name="login_login">login</string>
 	<string name="login_register">Register</string>
 	<string name="login_find_password">Find Password</string>
-	<string name="login_experience">Try</string>
+	<string name="login_experience">Try 5 min</string>
     <string name="register_birthday">birthday</string>
 	<string name="register_phone">phone</string>
 	<string name="register_confirmpassword">confirm password</string>
+    <string name="app_register">Register</string>
 </resources>

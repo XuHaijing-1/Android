@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputLayout;
 public class LoginActivity extends AppCompatActivity {
     private Button registerButton;
     private Button loginButton;
-//    private Button experienceButton;
+    private Button experienceButton;
     private UserLab lab =UserLab.getInstance();
     private Handler handler=new Handler(){
         @Override
@@ -61,18 +61,16 @@ public class LoginActivity extends AppCompatActivity {
             TextInputLayout password=findViewById(R.id.login_password);
             String u=username.getEditText().getText().toString();
             String p=password.getEditText().getText().toString();
-            //TODO 调用retrofit
+            // 调用retrofit
             lab.login(u,p,handler);
         });
 
-        /**
-         * 点击立即体验
-         */
-//        experienceButton=findViewById(R.id.experience_button);
-//        experienceButton.setOnClickListener(v->{
-//            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        });
+        // TODO 还未定时体验，目前是长久体验
+        experienceButton=findViewById(R.id.experience_button);
+        experienceButton.setOnClickListener(v->{
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        });
 
         /**
          * 点击立即注册
