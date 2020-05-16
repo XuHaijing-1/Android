@@ -16,7 +16,8 @@ public class RetrofitClient {
                     .add(new MyDateAdapter())
                     .build();
             INSTANCE=new Retrofit.Builder()
-                    .baseUrl("http://47.115.94.109:8005")
+                    .baseUrl("http://www.weitv.icu:8005")
+//                    .baseUrl("http://47.115.94.109:8005")
 //                    .baseUrl("http://47.115.34.11:8080")
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .build();

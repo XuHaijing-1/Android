@@ -16,4 +16,8 @@
 	<string name="register_phone">phone</string>
 	<string name="register_confirmpassword">confirm password</string>
     <string name="app_register">Register</string>
+    <string name="register_sex">Gender</string>
+	<string name="register_male">Male</string>
+	<string name="register_femle">Female</string>
+	<string name="register_keep">Keep</string>
 </resources>

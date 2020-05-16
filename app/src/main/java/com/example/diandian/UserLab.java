@@ -16,7 +16,6 @@ public class UserLab {
     public final static int USER_LOGIN_PASSWORD_ERROR=-1;
     public final static int USER_LOGIN_NET_ERROR=-2;
     public final static int USER_REGISTER_SUCCESS=1;
-    public final static int USER_REGISTER_ERROR=-1;
     public final static int USER_REGISTER_NET_ERROR=-2;
     private final static String TAG="Diandian";
     public static UserLab getInstance(){
@@ -29,15 +28,20 @@ public class UserLab {
     public void login(String username, String password, Handler handler){
         Retrofit retrofit=RetrofitClient.getInstance();
         UserApi api=retrofit.create(UserApi.class);
-        Call<com.example.diandian.Response> call=api.login(username,password);
-        call.enqueue(new Callback<com.example.diandian.Response>() {
+        Log.d(TAG,"准备登录的用户信息有用户名:"+username+"密码:"+password);
+        Call<Result> call=api.login(username,password);
+        call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<com.example.diandian.Response> call, Response<com.example.diandian.Response> response) {
-                Log.d(TAG,"登录成功返回数据");
+            public void onResponse(Call<Result> call, Response<Result> response) {
                 boolean loginSuccess=false;
-                if (response.body().getStatus()== com.example.diandian.Response.STATUS_OK){
-                    //登录成功
-                        loginSuccess=true;
+                if (response.body()!=null) {
+                    Result result =response.body();
+                    if (result.getStatus()==1) {
+                        Log.d(TAG,"登录成功返回数据:"+response.body());
+
+                        //登录成功
+                        loginSuccess = true;
+                    }
                 }
                 if (loginSuccess){
                     Message msg=new Message();
@@ -47,12 +51,13 @@ public class UserLab {
                     Message msg=new Message();
                     msg.what=USER_LOGIN_PASSWORD_ERROR;
                     handler.sendMessage(msg);
+                    Log.d(TAG,"密码错误，重新登录");
                 }
             }
 
             @Override
-            public void onFailure(Call<com.example.diandian.Response> call, Throwable t) {
-                Log.e(TAG,"登录失败！");
+            public void onFailure(Call<Result> call, Throwable t) {
+                Log.e(TAG,"登录失败！服务器错误");
                 Message msg=new Message();
                 msg.what=USER_LOGIN_NET_ERROR;
                 handler.sendMessage(msg);
@@ -60,37 +65,27 @@ public class UserLab {
         });
     }
 
-//    public void register(String username, String password,String confirmpassword,String phone,String birthbay, Handler handler){
-//        Retrofit retrofit=RetrofitClient.getInstance();
-//        UserApi api=retrofit.create(UserApi.class);
-//        Call<com.example.diandian.Response> call=api.register(data);
-//        call.enqueue(new Callback<com.example.diandian.Response>() {
-//            @Override
-//            public void onResponse(Call<com.example.diandian.Response> call, Response<com.example.diandian.Response> response) {
-//                Log.d(TAG,"注册成功返回数据");
-//                boolean registerSuccess=false;
-//                if (response.body().getStatus()== com.example.diandian.Response.STATUS_OK){
-//                    //登录成功
-//                    registerSuccess=true;
-//                }
-//                if (registerSuccess){
-//                    Message msg=new Message();
-//                    msg.what=USER_REGISTER_SUCCESS;
-//                    handler.sendMessage(msg);
-//                }else {
-//                    Message msg=new Message();
-//                    msg.what=USER_REGISTER_ERROR;
-//                    handler.sendMessage(msg);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<com.example.diandian.Response> call, Throwable t) {
-//                Log.e(TAG,"注册失败！");
-//                Message msg=new Message();
-//                msg.what=USER_REGISTER_NET_ERROR;
-//                handler.sendMessage(msg);
-//            }
-//        });
-//    }
+    public void register(User user, Handler handler){
+        Retrofit retrofit=RetrofitClient.getInstance();
+        UserApi api=retrofit.create(UserApi.class);
+        Log.d(TAG,"准备注册的用户信息："+user);
+        Call<User> call=api.register(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d(TAG, "注册成功返回数据:" + response.body());
+                Message msg = new Message();
+                msg.what = USER_REGISTER_SUCCESS;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(TAG,"注册失败！",t);
+                Message msg=new Message();
+                msg.what=USER_REGISTER_NET_ERROR;
+                handler.sendMessage(msg);
+            }
+        });
+    }
 }
