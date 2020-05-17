@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import java.io.File;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -37,8 +36,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    sleep(2000);//使程序休眠五秒
-                    Intent it=new Intent(getApplicationContext(),LoginActivity.class);//启动LonginActivity
+                    //使程序休眠3秒
+                    sleep(3000);
+                    //启动LonginActivity
+                    Intent it=new Intent(getApplicationContext(),LoginActivity.class);
                     startActivity(it);
                     finish();//关闭当前活动
                 }catch (Exception e){
@@ -49,14 +50,14 @@ public class SplashActivity extends AppCompatActivity {
         myThread.start();//启动线程
 
         img=findViewById(R.id.img);
-
-        img.setOnClickListener((v)->{
-            //开始透明度动画
-            Animation alpha= AnimationUtils.loadAnimation(this,
-                    R.anim.alpha_animation);
-            img.startAnimation(alpha);
-        });
-
+        //触发点击事件
+        img.performClick();
+        //开始透明度动画
+        Animation alpha= AnimationUtils.loadAnimation(this,R.anim.alpha_animation);
+        img.startAnimation(alpha);
+        //开始放大缩小动画
+//        Animation anim= AnimationUtils.loadAnimation(this,R.anim.anim_small);
+//        img.startAnimation(anim);
     }
 }
 

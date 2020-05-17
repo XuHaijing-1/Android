@@ -38,7 +38,6 @@ public class UserLab {
                     Result result =response.body();
                     if (result.getStatus()==1) {
                         Log.d(TAG,"登录成功返回数据:"+response.body());
-
                         //登录成功
                         loginSuccess = true;
                     }

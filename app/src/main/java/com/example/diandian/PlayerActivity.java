@@ -3,13 +3,13 @@ package com.example.diandian;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.TargetApi;
-import android.graphics.Color;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,7 +25,6 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -33,8 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
 
-public class PlayerActivity extends AppCompatActivity {
-
+public class PlayerActivity extends AppCompatActivity{
 
     private SimpleExoPlayer player;
     private PlayerView playerView;
@@ -86,13 +84,24 @@ public class PlayerActivity extends AppCompatActivity {
             sendButton.setOnClickListener(v->{
                 EditText t=findViewById(R.id.comment);
                 Comment c=new Comment();
-                c.setAuthor("MyApp");
+                c.setAuthor(LoginActivity.name);
                 c.setContent(t.getText().toString());
                 //随机点赞0-100
                 Random random=new Random();
                 c.setStar(random.nextInt(100));
                 //调用retrofit上传评论
-                lab.addComment(currentChannel.getId(),c,handler);
+                if(TextUtils.isEmpty(LoginActivity.name)){
+                    Log.d(TAG,"跳转登录界面！");
+                    Toast.makeText(PlayerActivity.this,"请登录后评论！",Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(PlayerActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }else if (TextUtils.isEmpty(t.getText().toString())){
+                    Toast.makeText(PlayerActivity.this,"请输入后评论！",Toast.LENGTH_LONG).show();
+                    return;
+                }else {
+                    Log.d(TAG,"输入当前评论是："+c);
+                    lab.addComment(currentChannel.getId(), c, handler);
+                }
             });
         }
         updateUI();
@@ -257,3 +266,6 @@ public class PlayerActivity extends AppCompatActivity {
 //        win.setAttributes(winParams);
 //    }
 }
+
+
+
