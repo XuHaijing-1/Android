@@ -82,15 +82,21 @@ public class ChannelLab {
         Retrofit retrofit=RetrofitClient.getInstance();
 
         ChannelApi api = retrofit.create(ChannelApi.class);
-        Call<List<Channel>> call=api.getAllChannels();
+        Call<Result<List<Channel>>> call=api.getAllChannels();
         //enqueue会自己生成子线程，去执行后溪代码
-        call.enqueue(new Callback<List<Channel>>() {
+        call.enqueue(new Callback<Result<List<Channel>>>() {
             @Override
-            public void onResponse(Call<List<Channel>> call, Response<List<Channel>> response) {
-                if (null != response && null != response.body()) {
+            public void onResponse(Call<Result<List<Channel>>> call, Response<Result<List<Channel>>> response) {
+                if (response.code()==403){
+                    Log.w(TAG,"被禁止访问服务器");
+                    Message msg=new Message();
+                    msg.what=MSG_FAILURE;
+                    handler.sendMessage(msg);
+                }else if (null != response && null != response.body()) {
                     Log.d(TAG, "从阿里云得到数据是：");
                     Log.d(TAG, response.body().toString());
-                    data=response.body();
+                    Result<List<Channel>> result=response.body();
+                    data=result.getData();
                     //发出通知
                     Message msg=new Message();
                     msg.what=MSG_CHANNELS;
@@ -100,7 +106,7 @@ public class ChannelLab {
                 }
             }
             @Override
-            public void onFailure(Call<List<Channel>> call, Throwable t) {
+            public void onFailure(Call<Result<List<Channel>>> call, Throwable t) {
                     Log.e(TAG,"访问网络失败",t);
 
             }
@@ -108,19 +114,24 @@ public class ChannelLab {
 
     }
 
-    public List<Comment> getHotComments(String channelId, Handler handler){
-        List<Comment>result=null;
+    public void getHotComments(String channelId, Handler handler){
         //调用单例
         Retrofit retrofit=RetrofitClient.getInstance();
         ChannelApi api = retrofit.create(ChannelApi.class);
-        Call<List<Comment>> call = api.getHotComments(channelId);
-        call.enqueue(new Callback<List<Comment>>() {
+        Call<Result<List<Comment>>> call = api.getHotComments(channelId);
+        call.enqueue(new Callback<Result<List<Comment>>> () {
             @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                if (null != response && null != response.body()) {
+            public void onResponse(Call<Result<List<Comment>>>  call, Response<Result<List<Comment>>>  response) {
+                if (response.code()==403) {
+                    Log.w(TAG, "禁止访问！");
+                    Message msg = new Message();
+                    msg.what = MSG_FAILURE;
+                    handler.sendMessage(msg);
+                }else if(null!=response&&null!=response.body()){
                     Log.d(TAG, "从阿里云得到评论数据是：");
                     Log.d(TAG, response.body().toString());
-                    List<Comment> comments=response.body();
+                    Result<List<Comment>> result=response.body();
+                    List<Comment> comments =result.getData();
                     //发出通知
                     Message msg=new Message();
                     msg.what=MSG_HOT_COMMENTS; //自己规定1代表从阿里云获取数据完毕
@@ -131,12 +142,10 @@ public class ChannelLab {
                 }
             }
             @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
+            public void onFailure(Call<Result<List<Comment>>>  call, Throwable t) {
                 Log.e(TAG,"访问网络失败",t);
             }
         });
-
-        return result;
     }
 
     /**

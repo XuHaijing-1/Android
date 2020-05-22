@@ -6,17 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import retrofit2.Retrofit;
 
@@ -29,20 +24,26 @@ public class MainActivity extends AppCompatActivity {
         //按快捷键ctrl o
         @Override
         public void handleMessage(@NonNull Message msg) {
-            if (msg.what==ChannelLab.MSG_CHANNELS){
-                rvAdapter.notifyDataSetChanged();
+            switch (msg.what){
+                case ChannelLab.MSG_CHANNELS:
+                    rvAdapter.notifyDataSetChanged();
+                    break;
+                case ChannelLab.MSG_FAILURE:
+                    failed();
+                    break;
             }
         }
     };
 
+    private void failed(){
+        Toast.makeText(MainActivity.this,"Token无效，禁止访问！",Toast.LENGTH_LONG).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         initWindow();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         this.channelRv=findViewById(R.id.channel_rv);
         //lambda简化
         //适用handler，把适配器改为实例变量
@@ -57,10 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
         this.channelRv.setAdapter(rvAdapter);
         this.channelRv.setLayoutManager(new LinearLayoutManager(this));
-
         Retrofit a=RetrofitClient.getInstance();
-
-
     }
 
     @Override
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明标题栏
 //        }
 //        setContentView(R.layout.activity_main);
-//        setContentView(R.layout.channel_row);
 
         // 标题栏居中显示
         ActionBar actionBar = getSupportActionBar();
@@ -101,13 +98,14 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             actionBar.setCustomView(R.layout.title_name);
             TextView textView = (TextView) actionBar.getCustomView().findViewById(R.id.display_title);
-            //标题名称
-//            textView.setText("微视频");
             //返回箭头
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowCustomEnabled(true);
         }
     }
+
+    //频道关注度
+
 }
 

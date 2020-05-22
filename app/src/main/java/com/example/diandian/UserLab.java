@@ -18,6 +18,8 @@ public class UserLab {
     public final static int USER_REGISTER_SUCCESS=1;
     public final static int USER_REGISTER_NET_ERROR=-2;
     private final static String TAG="Diandian";
+    public final static String USER_CURRENT="USER_CURRENT";
+    public final static String USER_TOKEN="USER_TOKEN";
     public static UserLab getInstance(){
         if (null==INSTANCE){
             INSTANCE=new UserLab();
@@ -28,23 +30,27 @@ public class UserLab {
     public void login(String username, String password, Handler handler){
         Retrofit retrofit=RetrofitClient.getInstance();
         UserApi api=retrofit.create(UserApi.class);
-        Log.d(TAG,"准备登录的用户信息有用户名:"+username+"密码:"+password);
-        Call<Result> call=api.login(username,password);
-        call.enqueue(new Callback<Result>() {
+        Log.d(TAG,"准备登录的用户信息用户名:"+username+" ,密码:"+password);
+        Call<Result<String>> call=api.login(username,password);
+        call.enqueue(new Callback<Result<String>>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
+            public void onResponse(Call<Result<String>> call, Response<Result<String>> response) {
                 boolean loginSuccess=false;
+                String token=null;
                 if (response.body()!=null) {
-                    Result result =response.body();
-                    if (result.getStatus()==1) {
+                    Log.d(TAG,"服务器返回结果:"+response.body());
+                    Result<String> result =response.body();
+                    if (result.getStatus()==Result.OK) {
                         Log.d(TAG,"登录成功返回数据:"+response.body());
                         //登录成功
                         loginSuccess = true;
+                        token=result.getData();
                     }
                 }
                 if (loginSuccess){
                     Message msg=new Message();
                     msg.what=USER_LOGIN_SUCCESS;
+                    msg.obj=token;
                     handler.sendMessage(msg);
                 }else {
                     Message msg=new Message();
@@ -55,7 +61,7 @@ public class UserLab {
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(Call<Result<String>> call, Throwable t) {
                 Log.e(TAG,"登录失败！服务器错误");
                 Message msg=new Message();
                 msg.what=USER_LOGIN_NET_ERROR;

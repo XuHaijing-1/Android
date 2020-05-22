@@ -14,7 +14,7 @@ public interface ChannelApi {
          * @return
          */
         @GET("/channel")
-        Call<List<Channel>> getAllChannels();
+        Call<Result<List<Channel>>> getAllChannels();
 
         /**
          * 获取热门评论
@@ -22,7 +22,7 @@ public interface ChannelApi {
          * @return 热门评论的列表
          */
         @GET("/channel/{channelId}/hotcomments")
-        Call<List<Comment>>getHotComments(@Path("channelId") String channenId);
+        Call<Result<List<Comment>>>getHotComments(@Path("channelId") String channenId);
 
         /**
          * 新增评论

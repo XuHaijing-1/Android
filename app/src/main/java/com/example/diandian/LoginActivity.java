@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
     public static String name;
+    private String user;
     private final static String TAG="Diandian";
     private Button registerButton;
     private Button loginButton;
@@ -28,13 +29,14 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView wxButton;
     final boolean[] tiyan = {true};
     private UserLab lab =UserLab.getInstance();
+    private Mypreference prefs=Mypreference.getInstance();
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg){
             if (null!=msg){
                 switch (msg.what){
                     case UserLab.USER_LOGIN_SUCCESS:
-                        loginSucess();
+                        loginSucess(msg.obj);
                         TextInputLayout username=findViewById(R.id.register_username);
                         name=username.getEditText().getText().toString();
                         break;
@@ -63,14 +65,12 @@ public class LoginActivity extends AppCompatActivity {
                     Intent it = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(it);
                     finish();//关闭当前活动
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
                     Looper.prepare();
                     Toast.makeText(getApplicationContext(), "5分钟体验已结束，请登录！", Toast.LENGTH_LONG).show();
                     Looper.loop();
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
 
@@ -79,11 +79,11 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v->{
             TextInputLayout username=findViewById(R.id.register_username);
             TextInputLayout password=findViewById(R.id.login_password);
-            String u=username.getEditText().getText().toString();
+            user=username.getEditText().getText().toString();
             String p=password.getEditText().getText().toString();
 
             //判断
-            if (TextUtils.isEmpty(u)){
+            if (TextUtils.isEmpty(user)){
                 Toast.makeText(LoginActivity.this,"请输入用户名！",Toast.LENGTH_LONG).show();
                 return;
             }else if (TextUtils.isEmpty(p)){
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }else {
                 // 调用retrofit
-                lab.login(u, p, handler);
+                lab.login(user, p, handler);
             }
         });
 
@@ -128,6 +128,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 tiyan[0] = false;
                 myThread.start();//启动线程
+                //TODO 判断当返回时摧毁子线程
+//                if () {
+//                    myThread.interrupt();//停止线程
+//                    return;
+//                }
             }else {
                 Log.d(TAG, "体验失败！你已体验5分钟");
                 Toast.makeText(LoginActivity.this, "你已体验5分钟，不能在体验，请登录！", Toast.LENGTH_LONG).show();
@@ -143,10 +148,13 @@ public class LoginActivity extends AppCompatActivity {
             //startActivity(intent);
             Toast.makeText(LoginActivity.this,"暂时未开发找回密码通道！",Toast.LENGTH_LONG).show();
         });
+        prefs.setup(getApplicationContext());
     }
 
-    private void loginSucess(){
+    private void loginSucess(Object token){
         Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_LONG).show();
+        Log.d(TAG,"服务器返回的token是："+token);
+        prefs.saveUser(user,(String) token);
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
     }

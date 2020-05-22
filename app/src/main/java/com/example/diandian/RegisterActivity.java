@@ -162,29 +162,40 @@ public class RegisterActivity extends AppCompatActivity {
         Editable password =passwordInput.getEditText().getText();
         Editable confirmpassword =confirmpasswordInput.getEditText().getText();
         if (TextUtils.isEmpty(password)){
-            Toast.makeText(RegisterActivity.this, "请输入密码！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "请输入6-20位密码！", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (TextUtils.isEmpty(confirmpassword)){
-            Toast.makeText(RegisterActivity.this, "请再次输入密码！", Toast.LENGTH_SHORT).show();
+        }else if (password.length()<6 || password.length()>20){
+            Toast.makeText(RegisterActivity.this, "请输入6-20位密码！", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (password!=null&&confirmpassword!=null){
-            if (!confirmpassword.toString().equals(password.toString())){
-                error =true;
-                errorMessage="两次输入密码不一样！";
-                Toast.makeText(RegisterActivity.this,"两次密码输入不一样，请重新输入！",Toast.LENGTH_LONG).show();
+        }else {
+            if (TextUtils.isEmpty(confirmpassword)){
+                Toast.makeText(RegisterActivity.this, "请再次输入密码！", Toast.LENGTH_SHORT).show();
                 return;
-            }else {
-                u.setPassword(password.toString());
+            }else if (password!=null&&confirmpassword!=null){
+                if (!confirmpassword.toString().equals(password.toString())){
+                    error =true;
+                    errorMessage="两次输入密码不一样！";
+                    Toast.makeText(RegisterActivity.this,"两次密码输入不一样，请重新输入！",Toast.LENGTH_LONG).show();
+                    return;
+                }else {
+                    u.setPassword(password.toString());
+                }
             }
         }
 
         //手机号
         TextInputLayout phoneInput =findViewById(R.id.register_phone);
         Editable phone =phoneInput.getEditText().getText();
+        String phone_number = phone.toString().trim();
+        String num = "[1][35789]\\d{9}";
         if (TextUtils.isEmpty(phone)) {
             Toast.makeText(RegisterActivity.this, "请输入手机号！", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (phone.length()!=11) {
+            Toast.makeText(RegisterActivity.this, "您的电话号码位数不正确", Toast.LENGTH_LONG).show();
+            return;
+        }else if (!phone_number.matches(num)) {
+            Toast.makeText(RegisterActivity.this, "请输入正确的电话号码！", Toast.LENGTH_LONG).show();
             return;
         }else {
             u.setPhone(phone != null ? phone.toString() : "");
@@ -216,7 +227,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         //判断数据
         //判断输入框内容
-        //从SharedPreferences中读取输入的用户名，判断SharedPreferences中是否有此用户名
         if(isExistUserName(username)){
             Toast.makeText(RegisterActivity.this, "此账户名已经存在", Toast.LENGTH_SHORT).show();
             return;
@@ -228,8 +238,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isExistUserName(Editable username) {
         boolean has_username=false;
-        //mode_private SharedPreferences sp = getSharedPreferences( );
-        // "loginInfo", MODE_PRIVATE
         SharedPreferences sp=getSharedPreferences("LoginActivity", MODE_PRIVATE);
         //获取密码
         String spPsw=sp.getString(String.valueOf(username), "");//传入用户名获取密码
